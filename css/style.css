@@ -1,0 +1,91 @@
+/* === РАСПАД — оверлей поверх WebGL. Брутально: моно, чёрное, ничего лишнего. === */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+[hidden] { display: none !important; }
+html, body { height: 100%; }
+body {
+  background: #050506;
+  color: #cfcecb;
+  font: 12px/1.5 ui-monospace, 'Cascadia Mono', 'JetBrains Mono', Consolas, monospace;
+  overflow: hidden;
+  cursor: crosshair;
+  touch-action: none;          /* щипок — bullet-time, а не зум страницы (iOS игнорирует maximum-scale) */
+  overscroll-behavior: none;
+}
+canvas#gl { position: fixed; inset: 0; width: 100%; height: 100%; display: block; }
+
+.ui { position: fixed; z-index: 2; user-select: none; -webkit-user-select: none; }
+
+.head { top: 22px; left: 26px; }
+.head h1 {
+  font-size: clamp(26px, 4vw, 44px);
+  font-weight: 800;
+  letter-spacing: 0.34em;
+  color: #e8e6e1;
+  text-shadow: 0 0 24px rgba(255, 90, 20, 0.25);
+}
+.head p { margin-top: 6px; color: #7d7b76; letter-spacing: 0.04em; max-width: 46ch; }
+
+.act {
+  left: 26px; bottom: 24px;
+  color: #a8a49d; letter-spacing: 0.22em; font-size: 11px;
+}
+.act.flip { animation: flip 0.5s ease; }
+@keyframes flip { 0% { opacity: 0; transform: translateY(8px); } 100% { opacity: 1; } }
+
+.foot { right: 26px; bottom: 24px; text-align: right; color: #7d7b76; }
+.foot a { color: #a8a49d; text-decoration: none; border-bottom: 1px solid #3a3936; }
+.foot a:hover { color: #e8e6e1; }
+.foot .vs { color: #55534f; font-size: 11px; margin-top: 4px; }
+
+.sound {
+  top: 24px; right: 26px;
+  background: none; border: 1px solid #3a3936; border-radius: 4px;
+  color: #a8a49d; font: inherit; letter-spacing: 0.12em; font-size: 10px;
+  padding: 7px 11px; cursor: pointer;
+}
+.sound:hover { border-color: #7d7b76; color: #e8e6e1; }
+.lang {
+  top: 24px; right: 132px;
+  color: #a8a49d; text-decoration: none; border: 1px solid #3a3936; border-radius: 4px;
+  font-size: 10px; letter-spacing: 0.12em; padding: 7px 11px;
+}
+.lang:hover { border-color: #7d7b76; color: #e8e6e1; }
+
+#cursor {
+  position: fixed; z-index: 3; width: 26px; height: 26px;
+  border: 1px solid rgba(255, 120, 40, 0.6); border-radius: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  mix-blend-mode: screen;
+  transition: width 0.2s, height 0.2s, opacity 0.5s;
+}
+#cursor.auto { opacity: 0; }   /* в автопилоте кольцо не болтается в пустоте */
+
+#debug {
+  top: 84px; right: 26px;
+  white-space: pre; text-align: right;
+  color: #6ee7d2; font-size: 11px;
+  background: rgba(5, 5, 6, 0.7); padding: 8px 10px; border-radius: 4px;
+}
+
+#nogl {
+  position: fixed; inset: 0; z-index: 5;
+  display: grid; place-items: center;
+  padding: 20vw; text-align: center; color: #a8a49d; font-size: 14px;
+  background: #050506;
+}
+
+@media (max-width: 700px) {
+  .head { top: 16px; left: 16px; }
+  .head p { display: none; }
+  .act { left: 16px; bottom: 16px; }
+  .foot { right: 16px; bottom: 16px; font-size: 10px; }
+  .foot .vs { display: none; }
+  .sound { top: 16px; right: 16px; }
+  .lang { top: 16px; right: 116px; }
+  #cursor { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .act.flip { animation: none; }
+}

@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>РАСПАД — машина агрегатных состояний</title>
+<meta name="description" content="262 144 частицы проживают все состояния материи: бетонный монолит самособирается из пыли, трескается, рушится твёрдыми обломками, плавится, испаряется и всасывается в сингулярность — а потом время идёт вспять. GPU-физика в браузере, ноль ассетов, ноль зависимостей кроме three.js.">
+<meta property="og:title" content="РАСПАД — GPU-машина агрегатных состояний">
+<meta property="og:description" content="Здание рушится, плавится и испаряется — 262k частиц, вся физика на GPU, view-source приветствуется.">
+<meta name="theme-color" content="#050506">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23050506'/%3E%3Crect x='7' y='6' width='18' height='20' fill='%23555350'/%3E%3Crect x='16' y='10' width='9' height='16' fill='%23FF5A1F' opacity='0.85'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="css/style.css">
+<script type="importmap">{ "imports": { "three": "./js/vendor/three.module.js" } }</script>
+</head>
+<body>
+
+<canvas id="gl"></canvas>
+<div id="cursor" aria-hidden="true"></div>
+
+<header class="ui head">
+  <h1>РАСПАД</h1>
+  <p>курсор греет бетон · колесо гнёт время · двойной клик — следующий акт · каждый цикл — новое здание</p>
+</header>
+
+<p class="ui act" id="act" aria-live="polite"></p>
+
+<button type="button" class="ui sound" id="sound" aria-pressed="false">ЗВУК ВЫКЛ</button>
+<a class="ui lang" href="en/" hreflang="en" lang="en">EN</a>
+
+<footer class="ui foot">
+  <p><a href="https://t.me/smirnovarturr">Артур Смирнов</a> · 2026</p>
+  <p class="vs">ноль ассетов · вся физика на GPU · view-source приветствуется</p>
+</footer>
+
+<pre class="ui" id="debug" hidden></pre>
+<div id="nogl" hidden>Демо требует WebGL2 с float-рендертаргетами. Машина материи здесь не заведётся — откройте в десктопном браузере.</div>
+<noscript><div id="nogl-ns" style="position:fixed;inset:0;z-index:6;display:grid;place-items:center;padding:18vw;text-align:center;background:#050506;color:#a8a49d;font:14px/1.6 monospace">РАСПАД — GPU-демо, без JavaScript не живёт.</div></noscript>
+
+<script>
+/* браузеры без import map (Safari ≤16.3, старые WebView) молча не загрузят модуль — скажем честно */
+if (!(window.HTMLScriptElement && HTMLScriptElement.supports && HTMLScriptElement.supports('importmap'))) {
+  document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('nogl').hidden = false;
+  });
+}
+</script>
+<script type="module" src="./js/main.js"></script>
+</body>
+</html>

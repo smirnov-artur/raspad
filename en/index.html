@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>DECAY — a machine of states of matter</title>
+<meta name="description" content="262,144 particles live through every state of matter: a concrete monolith self-assembles from dust, cracks, collapses into tumbling rigid debris, melts, evaporates and spirals into a singularity — then time runs backwards. GPU physics in the browser, zero assets, zero dependencies except three.js.">
+<meta property="og:title" content="DECAY — a GPU machine of states of matter">
+<meta property="og:description" content="A building collapses, melts and evaporates — 262k particles, all physics on the GPU, view-source welcome.">
+<meta name="theme-color" content="#050506">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23050506'/%3E%3Crect x='7' y='6' width='18' height='20' fill='%23555350'/%3E%3Crect x='16' y='10' width='9' height='16' fill='%23FF5A1F' opacity='0.85'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../css/style.css">
+<script type="importmap">{ "imports": { "three": "../js/vendor/three.module.js" } }</script>
+</head>
+<body>
+
+<canvas id="gl"></canvas>
+<div id="cursor" aria-hidden="true"></div>
+
+<header class="ui head">
+  <h1>DECAY</h1>
+  <p>cursor heats the concrete · wheel bends time · double-click — next act · every cycle builds a new structure</p>
+</header>
+
+<p class="ui act" id="act" aria-live="polite"></p>
+
+<button type="button" class="ui sound" id="sound" aria-pressed="false">SOUND OFF</button>
+<a class="ui lang" href="../" hreflang="ru" lang="ru">RU</a>
+
+<footer class="ui foot">
+  <p><a href="https://t.me/smirnovarturr">Artur Smirnov</a> · 2026</p>
+  <p class="vs">zero assets · all physics on the GPU · view-source welcome</p>
+</footer>
+
+<pre class="ui" id="debug" hidden></pre>
+<div id="nogl" hidden>This demo needs WebGL2 with float render targets. The machine of matter refuses to run here — try a desktop browser.</div>
+<noscript><div id="nogl-ns" style="position:fixed;inset:0;z-index:6;display:grid;place-items:center;padding:18vw;text-align:center;background:#050506;color:#a8a49d;font:14px/1.6 monospace">DECAY is a GPU demo — it cannot live without JavaScript.</div></noscript>
+
+<script>
+/* browsers without import map support (Safari ≤16.3, old WebViews) fail silently — say it honestly */
+if (!(window.HTMLScriptElement && HTMLScriptElement.supports && HTMLScriptElement.supports('importmap'))) {
+  document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('nogl').hidden = false;
+  });
+}
+</script>
+<script type="module" src="../js/main.js"></script>
+</body>
+</html>
